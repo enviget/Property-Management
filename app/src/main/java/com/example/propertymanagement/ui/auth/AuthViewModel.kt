@@ -8,6 +8,7 @@ import com.example.propertymanagement.data.di.components.DaggerAppComponent
 import com.example.propertymanagement.data.di.modules.AppModule
 import com.example.propertymanagement.data.models.User
 import com.example.propertymanagement.data.repositories.AuthRepository
+import com.example.propertymanagement.data.utils.ApiException
 import com.example.propertymanagement.data.utils.Coroutines
 import io.reactivex.disposables.Disposable
 import javax.inject.Inject
@@ -52,11 +53,16 @@ class AuthViewModel : ViewModel() {
             Log.d("abc", user.toString())
 
             Coroutines.main {
-                val response = authRepository.userRegister(user)
-                if (response.isSuccessful) {
-                    liveData.value = AuthAction.SUCCESS
-                } else {
+                try {
+                    val response = authRepository.userRegister(user)
+                    if (response.error) {
+                        liveData.value = AuthAction.FAILURE
+                    } else {
+                        liveData.value = AuthAction.SUCCESS
+                    }
+                } catch (e: ApiException) {
                     liveData.value = AuthAction.FAILURE
+                    Log.d("abc", "catch ApiException ${e.message}")
                 }
             }
         }
@@ -73,11 +79,17 @@ class AuthViewModel : ViewModel() {
             Log.d("abc", user.toString())
 
             Coroutines.main {
-                val response = authRepository.userLogin(user)
-                if (response.isSuccessful) {
-                    liveData.value = AuthAction.SUCCESS
-                } else {
+                try {
+                    val response = authRepository.userLogin(user)
+                    if (response.error) {
+                        liveData.value = AuthAction.FAILURE
+                    } else {
+
+                        liveData.value = AuthAction.SUCCESS
+                    }
+                } catch (e: ApiException) {
                     liveData.value = AuthAction.FAILURE
+                    Log.d("abc", "catch ApiException ${e.message}")
                 }
             }
         }

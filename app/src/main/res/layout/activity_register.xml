@@ -1,4 +1,4 @@
-<layout>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -12,55 +12,71 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextView
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="Register Page"
-            android:textSize="32dp" />
+            android:background="?attr/colorPrimary"
+            android:minHeight="?attr/actionBarSize"
+            app:tabGravity="fill"
+            app:tabMode="fixed"
+            app:tabSelectedTextColor="@color/white"
+            app:tabTextColor="#FFF" />
 
-        <EditText
-            android:id="@+id/edit_text_register_name"
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/pager"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Name"
-            android:text="@={registerInfo.name}" />
+            android:layout_height="match_parent" />
 
-        <EditText
-            android:id="@+id/edit_text_register_email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Email"
-            android:text="@={registerInfo.email}" />
+        <!--        <TextView-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:gravity="center"-->
+        <!--            android:text="Register Page"-->
+        <!--            android:textSize="32dp" />-->
 
-        <EditText
-            android:id="@+id/edit_text_register_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Password"
-            android:text="@={registerInfo.password}" />
+        <!--        <EditText-->
+        <!--            android:id="@+id/edit_text_register_name"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:hint="Name"-->
+        <!--            android:text="@={registerInfo.name}" />-->
+
+        <!--        <EditText-->
+        <!--            android:id="@+id/edit_text_register_email"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:hint="Email"-->
+        <!--            android:text="@={registerInfo.email}" />-->
+
+        <!--        <EditText-->
+        <!--            android:id="@+id/edit_text_register_password"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:hint="Password"-->
+        <!--            android:text="@={registerInfo.password}" />-->
 
 
-        <EditText
-            android:id="@+id/edit_text_register_type"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Type"
-            android:text="@={registerInfo.type}" />
+        <!--        <EditText-->
+        <!--            android:id="@+id/edit_text_register_type"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:hint="Type"-->
+        <!--            android:text="@={registerInfo.type}" />-->
 
-        <Button
-            android:id="@+id/button_register_register"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="@{registerInfo::onRegisterButtonClicked}"
-            android:text="Login" />
+        <!--        <Button-->
+        <!--            android:id="@+id/button_register_register"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:onClick="@{registerInfo::onRegisterButtonClicked}"-->
+        <!--            android:text="Login" />-->
 
-        <TextView
-            android:onClick="@{registerInfo::onHaveAccountButtonClicked}"
-            android:id="@+id/button_login_have_account"
-            android:layout_width="wrap_content"
-            android:text="Already have an account?"
-            android:layout_height="wrap_content"/>
+        <!--        <TextView-->
+        <!--            android:onClick="@{registerInfo::onHaveAccountButtonClicked}"-->
+        <!--            android:id="@+id/button_login_have_account"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:text="Already have an account?"-->
+        <!--            android:layout_height="wrap_content"/>-->
 
 
     </LinearLayout>

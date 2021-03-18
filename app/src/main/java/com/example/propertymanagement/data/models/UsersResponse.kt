@@ -8,12 +8,13 @@ import java.io.Serializable
 data class AuthResponse(
     val count: Int,
     val data: User,
-    val error: Boolean
+    val error: Boolean,
+    val message: String
 )
 
 const val CURRENT_USER_ID = 0
 
-@Entity
+//@Entity(tableName = "user_information")
 @Module
 data class User(
     var __v: Int? = null,
@@ -24,7 +25,8 @@ data class User(
     var name: String? = null,
     var password: String? = null,
     var type: String? = null
-){
-    @PrimaryKey(autoGenerate = false)
-    var uid = CURRENT_USER_ID
-}
+)
+//{
+//    @PrimaryKey(autoGenerate = false)
+//    var uid = CURRENT_USER_ID
+//}
