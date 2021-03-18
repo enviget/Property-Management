@@ -25,6 +25,10 @@ class AuthViewModel : ViewModel() {
     var password: String? = null
     var name: String? = null
     var type: String? = null
+    var landlordEmail : String? = null
+
+     var TAG_LANDLORD = "landlord"
+     var TAG_TENANT = "tenant"
 
     lateinit var disposal: Disposable
 
@@ -40,16 +44,44 @@ class AuthViewModel : ViewModel() {
         REDIRECT
     }
 
-    fun onRegisterButtonClicked(view: View) {
+    fun onLandlordRegisterButtonClicked(view: View) {
 
-        if (type.isNullOrEmpty() || name.isNullOrEmpty() || email.isNullOrEmpty() || password.isNullOrEmpty()) {
+        if (name.isNullOrEmpty() || email.isNullOrEmpty() || password.isNullOrEmpty()) {
             liveData.value = AuthAction.FAILURE
             Log.d("abc", "Login edit text is null")
         } else {
             user.email = email
             user.name = name
             user.password = password
-            user.type = type
+            user.type = TAG_LANDLORD
+            Log.d("abc", user.toString())
+
+            Coroutines.main {
+                try {
+                    val response = authRepository.userRegister(user)
+                    if (response.error) {
+                        liveData.value = AuthAction.FAILURE
+                    } else {
+                        liveData.value = AuthAction.SUCCESS
+                    }
+                } catch (e: ApiException) {
+                    liveData.value = AuthAction.FAILURE
+                    Log.d("abc", "catch ApiException ${e.message}")
+                }
+            }
+        }
+    }
+    fun onTenantRegisterButtonClicked(view: View) {
+
+        if (landlordEmail.isNullOrEmpty() || name.isNullOrEmpty() || email.isNullOrEmpty() || password.isNullOrEmpty()) {
+            liveData.value = AuthAction.FAILURE
+            Log.d("abc", "Login edit text is null")
+        } else {
+            user.email = email
+            user.name = name
+            user.password = password
+            user.type = TAG_TENANT
+            user.landlordEmail = landlordEmail
             Log.d("abc", user.toString())
 
             Coroutines.main {

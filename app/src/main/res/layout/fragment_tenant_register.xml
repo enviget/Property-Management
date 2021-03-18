@@ -1,7 +1,7 @@
 <layout>
     <data>
         <variable
-            name="landlordReg"
+            name="tenantReg"
             type="com.example.propertymanagement.ui.auth.AuthViewModel" />
     </data>
 
@@ -13,7 +13,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Landlord Register Page"
+            android:text="Tenant Register Page"
             android:textSize="32dp" />
 
         <EditText
@@ -21,35 +21,44 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Name"
-            android:text="@={landlordReg.name}" />
+            android:text="@={tenantReg.name}" />
 
         <EditText
             android:id="@+id/edit_text_register_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Email"
-            android:text="@={landlordReg.email}" />
+            android:text="@={tenantReg.email}" />
 
         <EditText
             android:id="@+id/edit_text_register_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Password"
-            android:text="@={landlordReg.password}" />
+            android:text="@={tenantReg.password}" />
+
+        <EditText
+            android:id="@+id/edit_text_register_landlordEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Landlord Email"
+            android:text="@={tenantReg.landlordEmail}" />
+
 
         <Button
             android:id="@+id/button_register_register"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="@{landlordReg::onLandlordRegisterButtonClicked}"
+            android:onClick="@{tenantReg::onTenantRegisterButtonClicked}"
             android:text="Register" />
 
         <TextView
-            android:onClick="@{landlordReg::onHaveAccountButtonClicked}"
+            android:onClick="@{tenantReg::onHaveAccountButtonClicked}"
             android:id="@+id/button_login_have_account"
             android:layout_width="wrap_content"
             android:text="Already have an account?"
             android:layout_height="wrap_content"/>
+
 
 
     </LinearLayout>
