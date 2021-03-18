@@ -6,10 +6,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.propertymanagement.data.di.components.DaggerAppComponent
 import com.example.propertymanagement.data.di.modules.AppModule
-import com.example.propertymanagement.data.models.AuthResponse
 import com.example.propertymanagement.data.models.User
 import com.example.propertymanagement.data.repositories.AuthRepository
-import io.reactivex.SingleObserver
+import com.example.propertymanagement.data.utils.Coroutines
 import io.reactivex.disposables.Disposable
 import javax.inject.Inject
 
@@ -26,7 +25,7 @@ class AuthViewModel : ViewModel() {
     var name: String? = null
     var type: String? = null
 
-    lateinit var disposal : Disposable
+    lateinit var disposal: Disposable
 
     @Inject
     lateinit var user: User
@@ -52,8 +51,14 @@ class AuthViewModel : ViewModel() {
             user.type = type
             Log.d("abc", user.toString())
 
-            var response = authRepository.userRegister(user)
-            response.subscribeWith(AuthObserver())
+            Coroutines.main {
+                val response = authRepository.userRegister(user)
+                if (response.isSuccessful) {
+                    liveData.value = AuthAction.SUCCESS
+                } else {
+                    liveData.value = AuthAction.FAILURE
+                }
+            }
         }
     }
 
@@ -67,36 +72,17 @@ class AuthViewModel : ViewModel() {
             user.password = password
             Log.d("abc", user.toString())
 
-            val response = authRepository.userLogin(user)
-            response.subscribeWith(AuthObserver())
-        }
-    }
-
-    inner class AuthObserver() : SingleObserver<AuthResponse> {
-        override fun onSuccess(t: AuthResponse) {
-            if (t.error) {
-                liveData.value = AuthAction.FAILURE
-                Log.d("abc", "error = true")
-
-            } else {
-                liveData.value = AuthAction.SUCCESS
-                Log.d("abc", "error = false")
+            Coroutines.main {
+                val response = authRepository.userLogin(user)
+                if (response.isSuccessful) {
+                    liveData.value = AuthAction.SUCCESS
+                } else {
+                    liveData.value = AuthAction.FAILURE
+                }
             }
-
         }
-
-        override fun onSubscribe(d: Disposable) {
-            disposal = d
-            Log.d("abc", "Disposal")
-        }
-
-        override fun onError(e: Throwable) {
-            liveData.value = AuthAction.FAILURE
-            Log.d("abc", e.message)
-            Log.d("abc", "exception called in Auth Observer")
-        }
-
     }
+
     fun onNoAccountButtonClicked(view: View) {
         liveData.value = AuthAction.REDIRECT
     }

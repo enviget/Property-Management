@@ -10,6 +10,7 @@ import com.example.propertymanagement.data.models.AuthResponse
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import retrofit2.Response
 import javax.inject.Inject
 
 class AuthRepository {
@@ -21,14 +22,12 @@ class AuthRepository {
     @Inject
     lateinit var myApi: MyApi
 
-    fun userLogin(user: User): Single<AuthResponse> {
-        return myApi.postLogin(user).subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+    suspend fun userLogin(user: User): Response<AuthResponse> {
+        return myApi.postLogin(user)
     }
 
-    fun userRegister(user: User): Single<AuthResponse> {
-        return myApi.postRegister(user).subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+    suspend fun userRegister(user: User): Response<AuthResponse> {
+        return myApi.postRegister(user)
     }
 
 }
