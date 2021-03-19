@@ -33,6 +33,7 @@ class TenantRegisterFragment : Fragment() {
             viewLifecycleOwner, Observer {
                 when (it) {
                     AuthViewModel.AuthAction.SUCCESS -> {
+
                         Toast.makeText(
                             activity!!.applicationContext,
                             "Register Successful",

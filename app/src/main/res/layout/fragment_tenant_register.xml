@@ -1,66 +1,110 @@
 <layout>
+
     <data>
+
         <variable
             name="tenantReg"
             type="com.example.propertymanagement.ui.auth.AuthViewModel" />
     </data>
 
-    <LinearLayout android:layout_height="match_parent" android:layout_width="match_parent"
-        android:orientation="vertical"
-        xmlns:android="http://schemas.android.com/apk/res/android">
-
-        <TextView
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="Tenant Register Page"
-            android:textSize="32dp" />
+            android:layout_height="match_parent">
 
-        <EditText
-            android:id="@+id/edit_text_register_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Name"
-            android:text="@={tenantReg.name}" />
+            <ImageView
+                android:id="@+id/banner"
+                android:layout_width="350dp"
+                android:layout_height="230dp"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:scaleType="fitXY"
+                android:src="@mipmap/logo_foreground"
+                android:textSize="32dp" />
 
-        <EditText
-            android:id="@+id/edit_text_register_email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Email"
-            android:text="@={tenantReg.email}" />
+            <EditText
+                android:layout_below="@+id/banner"
+                android:id="@+id/edit_text_register_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:drawablePadding="10dp"
+                android:hint="Name"
+                android:inputType="textPersonName"
+                android:paddingBottom="20dp"
+                android:text="@={tenantReg.name}" />
 
-        <EditText
-            android:id="@+id/edit_text_register_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Password"
-            android:text="@={tenantReg.password}" />
+            <EditText
+                android:id="@+id/edit_text_register_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/edit_text_register_name"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="11dp"
+                android:layout_marginRight="20dp"
+                android:drawablePadding="10dp"
+                android:hint="Email"
+                android:inputType="textEmailAddress"
+                android:paddingBottom="20dp"
+                android:text="@={tenantReg.email}" />
 
-        <EditText
-            android:id="@+id/edit_text_register_landlordEmail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Landlord Email"
-            android:text="@={tenantReg.landlordEmail}" />
+            <EditText
+                android:id="@+id/edit_text_register_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/edit_text_register_email"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="11dp"
+                android:layout_marginRight="20dp"
+                android:drawablePadding="10dp"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:paddingBottom="20dp"
+                android:text="@={tenantReg.password}" />
+
+            <EditText
+                android:id="@+id/edit_text_register_landlordEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/edit_text_register_password"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="11dp"
+                android:layout_marginRight="20dp"
+                android:drawablePadding="10dp"
+                android:hint="Landlord Email"
+                android:inputType="textEmailAddress"
+                android:paddingBottom="20dp"
+                android:text="@={tenantReg.landlordEmail}" />
+
+            <Button
+                android:id="@+id/button_register_register"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_below="@+id/edit_text_register_landlordEmail"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginRight="20dp"
+                android:background="#00008b"
+                android:onClick="@{tenantReg::onTenantRegisterButtonClicked}"
+                android:text="Register"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/button_login_have_account"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/button_register_register"
+                android:layout_margin="15dp"
+                android:onClick="@{tenantReg::onHaveAccountButtonClicked}"
+                android:text="Already have an account?" />
 
 
-        <Button
-            android:id="@+id/button_register_register"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="@{tenantReg::onTenantRegisterButtonClicked}"
-            android:text="Register" />
-
-        <TextView
-            android:onClick="@{tenantReg::onHaveAccountButtonClicked}"
-            android:id="@+id/button_login_have_account"
-            android:layout_width="wrap_content"
-            android:text="Already have an account?"
-            android:layout_height="wrap_content"/>
-
-
-
-    </LinearLayout>
-
+        </RelativeLayout>
+    </ScrollView>
 </layout>
+

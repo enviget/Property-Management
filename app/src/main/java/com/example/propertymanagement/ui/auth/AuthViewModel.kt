@@ -2,6 +2,7 @@ package com.example.propertymanagement.ui.auth
 
 import android.util.Log
 import android.view.View
+import android.widget.ProgressBar
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.propertymanagement.data.di.components.DaggerAppComponent
@@ -24,11 +25,10 @@ class AuthViewModel : ViewModel() {
     var email: String? = null
     var password: String? = null
     var name: String? = null
-    var type: String? = null
-    var landlordEmail : String? = null
+    var landlordEmail: String? = null
 
-     var TAG_LANDLORD = "landlord"
-     var TAG_TENANT = "tenant"
+    var TAG_LANDLORD = "landlord"
+    var TAG_TENANT = "tenant"
 
     lateinit var disposal: Disposable
 
@@ -71,6 +71,7 @@ class AuthViewModel : ViewModel() {
             }
         }
     }
+
     fun onTenantRegisterButtonClicked(view: View) {
 
         if (landlordEmail.isNullOrEmpty() || name.isNullOrEmpty() || email.isNullOrEmpty() || password.isNullOrEmpty()) {
@@ -134,5 +135,4 @@ class AuthViewModel : ViewModel() {
     fun onHaveAccountButtonClicked(view: View) {
         liveData.value = AuthAction.REDIRECT
     }
-
 }

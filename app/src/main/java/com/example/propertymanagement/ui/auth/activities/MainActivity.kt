@@ -1,4 +1,4 @@
-package com.example.propertymanagement.ui.home
+package com.example.propertymanagement.ui.auth.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

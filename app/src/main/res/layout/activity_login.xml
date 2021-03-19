@@ -1,50 +1,101 @@
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
         <variable
             name="loginInfo"
             type="com.example.propertymanagement.ui.auth.AuthViewModel" />
     </data>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
-        <TextView
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Login Page"
-            android:textSize="32dp"
-            android:gravity="center"/>
+            android:layout_height="match_parent">
+            <include layout="@layout/app_bar" />
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Email"
-            android:text="@={loginInfo.email}"
-            android:id="@+id/edit_text_login_email"/>
+            <ImageView
+                android:id="@+id/banner"
+                android:layout_width="350dp"
+                android:layout_height="230dp"
+                android:layout_below="@+id/toolbar"
+                android:layout_centerHorizontal="true"
+                android:scaleType="fitXY"
+                android:src="@mipmap/logo_foreground"
+                android:textSize="32dp" />
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Password"
-            android:text="@={loginInfo.password}"
-            android:id="@+id/edit_text_login_password"/>
+            <EditText
+                android:id="@+id/edit_text_login_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/banner"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:drawablePadding="10dp"
+                android:hint="Email"
+                android:inputType="textEmailAddress"
+                android:paddingBottom="20dp"
+                android:text="@={loginInfo.email}" />
 
-        <Button
-            android:onClick="@{loginInfo::onLoginButtonClicked}"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Login"
-            android:id="@+id/button_login_login"/>
+            <EditText
+                android:id="@+id/edit_text_login_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/edit_text_login_email"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="11dp"
+                android:layout_marginRight="20dp"
+                android:drawablePadding="10dp"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:paddingBottom="20dp"
+                android:text="@={loginInfo.password}" />
 
-        <TextView
-            android:onClick="@{loginInfo::onNoAccountButtonClicked}"
-            android:id="@+id/button_login_have_account"
-            android:layout_width="wrap_content"
-            android:text="Do not have an account?"
-            android:layout_height="wrap_content"/>
+            <TextView
+
+                android:id="@+id/text_view_login_forgot_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/edit_text_login_password"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="25dp"
+                android:text="Forgot Password"
+                android:textColor="#8F8686"
+                android:textSize="15dp" />
+
+            <Button
+                android:id="@+id/button_login_login"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_below="@+id/text_view_login_forgot_password"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginRight="20dp"
+                android:background="#00008b"
+                android:onClick="@{loginInfo::onLoginButtonClicked}"
+                android:text="Log In"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/button_login_have_account"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/button_login_login"
+                android:layout_margin="15dp"
+                android:onClick="@{loginInfo::onNoAccountButtonClicked}"
+                android:text="Don't have an account? Sign up now" />
+
+            <ProgressBar
+                android:id="@+id/progressBar_login"
+                style="?android:attr/progressBarStyle"
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_height="wrap_content" />
 
 
-    </LinearLayout>
+        </RelativeLayout>
+    </ScrollView>
 </layout>

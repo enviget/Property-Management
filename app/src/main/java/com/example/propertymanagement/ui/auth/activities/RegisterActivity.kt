@@ -9,6 +9,7 @@ import com.example.propertymanagement.databinding.ActivityRegisterBinding
 import com.example.propertymanagement.ui.adapters.AdapterFragment
 import com.example.propertymanagement.ui.auth.AuthViewModel
 import kotlinx.android.synthetic.main.activity_register.*
+import kotlinx.android.synthetic.main.app_bar.*
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -24,5 +25,11 @@ class RegisterActivity : AppCompatActivity() {
         var adapterFragment = AdapterFragment(supportFragmentManager)
         view_pager.adapter = adapterFragment
         tab_layout.setupWithViewPager(view_pager)
+        setupToolbar()
+    }
+
+    private fun setupToolbar(){
+        toolbar.title = "Register"
+        setSupportActionBar(toolbar)
     }
 }

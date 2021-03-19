@@ -2,6 +2,7 @@ package com.example.propertymanagement.ui.auth.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -10,7 +11,8 @@ import androidx.lifecycle.ViewModelProviders
 import com.example.propertymanagement.R
 import com.example.propertymanagement.databinding.ActivityLoginBinding
 import com.example.propertymanagement.ui.auth.AuthViewModel
-import com.example.propertymanagement.ui.home.MainActivity
+import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.app_bar.*
 
 
 class LoginActivity : AppCompatActivity() {
@@ -46,5 +48,11 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
         })
+        setupToolbar()
+    }
+
+    private fun setupToolbar(){
+        toolbar.title = "Login"
+        setSupportActionBar(toolbar)
     }
 }
