@@ -1,5 +1,6 @@
 package com.example.propertymanagement.data.networks
 
+import android.util.Log
 import com.example.propertymanagement.data.utils.ApiException
 import org.json.JSONException
 import org.json.JSONObject
@@ -10,6 +11,7 @@ abstract class SafeApiRequest {
         val response = call.invoke()
 
         if (response.isSuccessful) {
+            Log.d("abc", response.body()!!.toString())
             return response.body()!!
         } else {
             val error = response.errorBody()?.toString()

@@ -1,17 +1,19 @@
 package com.example.propertymanagement.ui.auth
 
+import android.content.Context
 import android.util.Log
 import android.view.View
-import android.widget.ProgressBar
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.propertymanagement.data.db.SessionManager
 import com.example.propertymanagement.data.di.components.DaggerAppComponent
 import com.example.propertymanagement.data.di.modules.AppModule
 import com.example.propertymanagement.data.models.User
 import com.example.propertymanagement.data.repositories.AuthRepository
 import com.example.propertymanagement.data.utils.ApiException
 import com.example.propertymanagement.data.utils.Coroutines
-import io.reactivex.disposables.Disposable
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class AuthViewModel : ViewModel() {
@@ -30,10 +32,12 @@ class AuthViewModel : ViewModel() {
     var TAG_LANDLORD = "landlord"
     var TAG_TENANT = "tenant"
 
-    lateinit var disposal: Disposable
 
     @Inject
-    lateinit var user: User
+    lateinit var sessionManager: SessionManager
+
+    @Inject
+     lateinit var user :User
 
     @Inject
     lateinit var authRepository: AuthRepository
@@ -41,7 +45,8 @@ class AuthViewModel : ViewModel() {
     enum class AuthAction {
         SUCCESS,
         FAILURE,
-        REDIRECT
+        REDIRECT,
+        LOGGEDIN,
     }
 
     fun onLandlordRegisterButtonClicked(view: View) {
@@ -117,7 +122,8 @@ class AuthViewModel : ViewModel() {
                     if (response.error) {
                         liveData.value = AuthAction.FAILURE
                     } else {
-
+                        Log.d("abc", "${response.user}")
+                        sessionManager.login(response.user!!)
                         liveData.value = AuthAction.SUCCESS
                     }
                 } catch (e: ApiException) {
@@ -135,4 +141,18 @@ class AuthViewModel : ViewModel() {
     fun onHaveAccountButtonClicked(view: View) {
         liveData.value = AuthAction.REDIRECT
     }
+
+    fun loggedIn(){
+        viewModelScope.launch {
+            try{
+                if(sessionManager.isUserLoggedIn()){
+                    Log.d("abc", "${sessionManager.isUserLoggedIn()}")
+                    liveData.value = AuthAction.SUCCESS
+                }
+            }catch (e : Exception){
+                Log.d("abc", "user is not logged in")
+            }
+        }
+    }
+
 }

@@ -1,25 +1,25 @@
 package com.example.propertymanagement.data.di.modules
 
-import android.content.Context
-import android.provider.Settings.Global.getString
-import androidx.room.Room
-import androidx.room.RoomDatabase
-import com.example.propertymanagement.R
+import com.example.propertymanagement.data.db.SessionManager
+import com.example.propertymanagement.data.models.Property
 import com.example.propertymanagement.data.models.User
-import com.example.propertymanagement.data.networks.MyApi
+import com.example.propertymanagement.data.networks.AuthApi
+import com.example.propertymanagement.data.networks.PropertyApi
 import com.example.propertymanagement.data.repositories.AuthRepository
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.example.propertymanagement.data.repositories.PropertyRepository
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
-import kotlin.coroutines.coroutineContext
 
 @Module
-class AppModule {
+class AppModule(/*private val application : MyApplication*/) {
 
+//    @Provides @Singleton fun provideApplicationContext(): Context = application
+
+    //libraries
     @Singleton
     @Provides
     fun provideRetrofit(): Retrofit {
@@ -32,31 +32,47 @@ class AppModule {
 
     @Singleton
     @Provides
-    fun provideMyApi(retrofit: Retrofit): MyApi {
-        return retrofit.create(MyApi::class.java)
+    fun provideSessionManager():SessionManager{
+        return SessionManager()
     }
 
+
+    //API
+    @Singleton
+    @Provides
+    fun provideMyApi(retrofit: Retrofit): AuthApi {
+        return retrofit.create(AuthApi::class.java)
+    }
+
+    @Provides
+    fun provideProductApi(retrofit: Retrofit): PropertyApi {
+        return retrofit.create(PropertyApi::class.java)
+    }
+
+
+    //Repository
+    @Singleton
     @Provides
     fun getAuthRepo(): AuthRepository {
         return AuthRepository()
     }
 
+    @Singleton
+    @Provides
+    fun getPropertyRepo(): PropertyRepository {
+        return PropertyRepository()
+    }
+
+
+    //Data class
     @Provides
     fun getUser(): User {
         return User()
     }
 
-//    @Provides
-//     fun provideRoomDatabase(context : Context): RoomDatabase{
-//        return Room.databaseBuilder(context.applicationContext, AppDataBase::class.java, "").build()
-//    }
-
-//    @Provides
-//    fun provideGoogleSignInOptions(context:Context) : GoogleSignInOptions{
-//        return GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-//            .requestIdToken(context.applicationContext.getString(R.string.default_web_client_id))
-//            .requestEmail()
-//            .build()
-//    }
+    @Provides
+    fun getProperty():Property{
+        return Property()
+    }
 
 }

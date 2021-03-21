@@ -35,7 +35,7 @@ class TenantRegisterFragment : Fragment() {
                     AuthViewModel.AuthAction.SUCCESS -> {
 
                         Toast.makeText(
-                            activity!!.applicationContext,
+                            activity?.applicationContext,
                             "Register Successful",
                             Toast.LENGTH_SHORT
                         )
@@ -43,16 +43,16 @@ class TenantRegisterFragment : Fragment() {
 
                         startActivity(
                             Intent(
-                                activity!!.applicationContext,
+                                activity?.applicationContext,
                                 LoginActivity::class.java
                             )
                         )
-                        activity!!.finish()
+                        activity?.finish()
                     }
 
                     AuthViewModel.AuthAction.FAILURE -> {
                         Toast.makeText(
-                            activity!!.applicationContext,
+                            activity?.applicationContext,
                             "Register Failed",
                             Toast.LENGTH_SHORT
                         ).show()
@@ -60,9 +60,9 @@ class TenantRegisterFragment : Fragment() {
 
                     AuthViewModel.AuthAction.REDIRECT -> {
                         var intent =
-                            Intent(activity!!.applicationContext, LoginActivity::class.java)
+                            Intent(activity?.applicationContext, LoginActivity::class.java)
                         startActivity(intent)
-                        activity!!.finish()
+                        activity?.finish()
                     }
                 }
             })

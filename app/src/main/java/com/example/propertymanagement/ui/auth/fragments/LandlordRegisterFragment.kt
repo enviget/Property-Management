@@ -35,27 +35,27 @@ class LandlordRegisterFragment : Fragment() {
             when (it) {
                 AuthViewModel.AuthAction.SUCCESS -> {
                     Toast.makeText(
-                        activity!!.applicationContext,
+                        requireActivity().applicationContext,
                         "Register Successful",
                         Toast.LENGTH_SHORT
                     ).show()
 
-                    startActivity(Intent(activity!!.applicationContext, LoginActivity::class.java))
-                    activity!!.finish()
+                    startActivity(Intent(requireActivity().applicationContext, LoginActivity::class.java))
+                    requireActivity().finish()
                 }
 
                 AuthViewModel.AuthAction.FAILURE -> {
                     Toast.makeText(
-                        activity!!.applicationContext,
+                        requireActivity().applicationContext,
                         "Register Failed",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
 
                 AuthViewModel.AuthAction.REDIRECT -> {
-                    var intent = Intent(activity!!.applicationContext, LoginActivity::class.java)
+                    var intent = Intent(requireActivity().applicationContext, LoginActivity::class.java)
                     startActivity(intent)
-                    activity!!.finish()
+                    requireActivity().finish()
                 }
             }
         })

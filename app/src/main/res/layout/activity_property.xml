@@ -1,0 +1,29 @@
+<layout xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="propertyList"
+            type="com.example.propertymanagement.ui.property.PropertyViewModel" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context = "com.example.propertymanagement.ui.property.PropertyActivity"
+        android:orientation="vertical">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{propertyList::onAddPropertyButtonClicked}"
+            android:text="Add new Property"/>
+
+       <androidx.recyclerview.widget.RecyclerView
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:id="@+id/recycler_view_property"/>
+    </LinearLayout>
+</layout>
+
+<!--         android:onClick="@{getPropertyList::onAddNewPropertyButtonClicked}"-->

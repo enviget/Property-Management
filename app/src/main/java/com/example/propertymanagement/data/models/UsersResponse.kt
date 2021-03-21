@@ -3,18 +3,14 @@ package com.example.propertymanagement.data.models
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import dagger.Module
-import java.io.Serializable
 
 data class AuthResponse(
     val count: Int,
     val data: User,
     val error: Boolean,
-    val message: String
+    val user : User
 )
 
-const val CURRENT_USER_ID = 0
-
-//@Entity(tableName = "user_information")
 @Module
 data class User(
     var __v: Int? = null,
@@ -26,7 +22,3 @@ data class User(
     var password: String? = null,
     var type: String? = null
 )
-//{
-//    @PrimaryKey(autoGenerate = false)
-//    var uid = CURRENT_USER_ID
-//}

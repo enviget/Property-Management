@@ -2,29 +2,37 @@ package com.example.propertymanagement.ui.auth.activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import com.example.propertymanagement.R
 import com.example.propertymanagement.databinding.ActivityLoginBinding
 import com.example.propertymanagement.ui.auth.AuthViewModel
-import kotlinx.android.synthetic.main.activity_login.*
+import com.example.propertymanagement.ui.home.MainActivity
 import kotlinx.android.synthetic.main.app_bar.*
+import javax.inject.Inject
 
 
 class LoginActivity : AppCompatActivity() {
 
     lateinit var mLoginBinding: ActivityLoginBinding
+    val viewModel by viewModels<AuthViewModel>()
+
+//    @Inject
+//    lateinit var sessionManager: SessionManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+//
+//        if (sessionManager.isUserLoggedIn()) {
+//            startActivity(Intent(this, MainActivity::class.java))
+//            finish()
+//        }
         mLoginBinding = DataBindingUtil.setContentView(this, R.layout.activity_login)
-        var viewModel = ViewModelProviders.of(this).get(AuthViewModel::class.java)
         mLoginBinding.loginInfo = viewModel
+        viewModel.loggedIn()
         viewModel.liveData.observe(this, Observer {
             when (it) {
                 AuthViewModel.AuthAction.SUCCESS -> {
@@ -51,8 +59,9 @@ class LoginActivity : AppCompatActivity() {
         setupToolbar()
     }
 
-    private fun setupToolbar(){
+    private fun setupToolbar() {
         toolbar.title = "Login"
         setSupportActionBar(toolbar)
     }
+
 }
