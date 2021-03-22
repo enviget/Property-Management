@@ -7,6 +7,8 @@ import com.example.propertymanagement.data.networks.AuthApi
 import com.example.propertymanagement.data.networks.PropertyApi
 import com.example.propertymanagement.data.repositories.AuthRepository
 import com.example.propertymanagement.data.repositories.PropertyRepository
+import com.example.propertymanagement.data.utils.Dexters
+import com.karumi.dexter.Dexter
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
@@ -32,8 +34,14 @@ class AppModule(/*private val application : MyApplication*/) {
 
     @Singleton
     @Provides
-    fun provideSessionManager():SessionManager{
+    fun provideSessionManager(): SessionManager {
         return SessionManager()
+    }
+
+    @Singleton
+    @Provides
+    fun provideDexter(): Dexters {
+        return Dexters()
     }
 
 
@@ -71,8 +79,9 @@ class AppModule(/*private val application : MyApplication*/) {
     }
 
     @Provides
-    fun getProperty():Property{
+    fun getProperty(): Property {
         return Property()
     }
+
 
 }

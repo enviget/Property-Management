@@ -1,5 +1,6 @@
 package com.example.propertymanagement.ui.property
 
+import android.Manifest
 import android.util.Log
 import android.view.View
 import androidx.lifecycle.MutableLiveData
@@ -10,12 +11,19 @@ import com.example.propertymanagement.data.di.modules.AppModule
 import com.example.propertymanagement.data.models.Property
 import com.example.propertymanagement.data.repositories.PropertyRepository
 import com.example.propertymanagement.data.utils.Coroutines
+import com.example.propertymanagement.data.utils.Dexters
+import com.karumi.dexter.PermissionToken
+import com.karumi.dexter.listener.PermissionDeniedResponse
+import com.karumi.dexter.listener.PermissionGrantedResponse
+import com.karumi.dexter.listener.PermissionRequest
+import com.karumi.dexter.listener.single.PermissionListener
 import javax.inject.Inject
 
 class PropertyViewModel() : ViewModel() {
 
     var propertyList = ArrayList<Property>()
     var liveData: MutableLiveData<PropertyAction> = MutableLiveData()
+    var permissionLiveData: MutableLiveData<Permissions> = MutableLiveData()
 
     init {
         DaggerAppComponent.builder().appModule(AppModule()).build().inject(this)
@@ -30,6 +38,9 @@ class PropertyViewModel() : ViewModel() {
     @Inject
     lateinit var newProperty: Property
 
+    @Inject
+    lateinit var dexters: Dexters
+
     var userId: String? = null
     var address: String? = null
     var city: String? = null
@@ -40,6 +51,10 @@ class PropertyViewModel() : ViewModel() {
 
     enum class PropertyAction {
         SUCCESS, FAILURE, REDIRECT
+    }
+
+    enum class Permissions {
+        ACCEPTED, DENIED, REDIRECT
     }
 
     fun getProperty() {
@@ -77,10 +92,28 @@ class PropertyViewModel() : ViewModel() {
             if (response.isSuccessful) {
                 liveData.value = PropertyAction.SUCCESS
             }
-
         }
     }
+
+    fun onAddPropertyPicture(view: View) {
+        dexters.requestSinglePermission().withPermission(Manifest.permission.CAMERA).withListener(
+            object : PermissionListener {
+                override fun onPermissionGranted(p0: PermissionGrantedResponse?) {
+                    permissionLiveData.value = Permissions.ACCEPTED
+                }
+                override fun onPermissionRationaleShouldBeShown(
+                    p0: PermissionRequest?,
+                    p1: PermissionToken?
+                ) {
+                    TODO("Not yet implemented")
+                }
+                override fun onPermissionDenied(p0: PermissionDeniedResponse?) {
+                    permissionLiveData.value = Permissions.DENIED
+                }
+            }).check()
+    }
 }
+
 
 
 

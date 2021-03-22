@@ -6,6 +6,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -44,10 +45,16 @@ class PropertyActivity : AppCompatActivity() {
         })
     }
 
+
     fun getData() {
         adapter = AdapterProperty(this)
         propertyBinding.recyclerViewProperty.adapter = adapter
         propertyBinding.recyclerViewProperty.layoutManager = LinearLayoutManager(this)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        adapter.setData(viewModel.propertyList)
     }
 
 }
